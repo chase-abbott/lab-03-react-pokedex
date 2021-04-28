@@ -1,0 +1,19 @@
+.Search {
+  display: grid;
+  grid-template-columns: 1fr .5fr 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.Search input {
+    height: 50px;
+    flex-grow: 2;
+}
+
+.Search select {
+    flex-grow: 1;
+}
+
+.Search button {
+
+}

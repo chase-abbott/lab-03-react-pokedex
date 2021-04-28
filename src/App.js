@@ -1,9 +1,10 @@
 import { Component } from 'react';
 import Header from './Header';
+import Search from './Search';
+import PokeList from './PokeList';
 import Footer from './Footer';
 import './App.css';
 import React from 'react';
-import PokeList from './PokeList';
 
 class App extends Component {
 
@@ -11,6 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
+        <Search/>
         <main>
           <PokeList/>
         </main>

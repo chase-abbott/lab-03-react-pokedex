@@ -1,6 +1,7 @@
 .App {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
+  background-color: rgb(114, 185, 114);
 }
 
 /* TODO: remove **/

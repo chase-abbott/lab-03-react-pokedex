@@ -1,6 +1,7 @@
 .Header {
    display: grid;
    grid-template-columns: auto auto;
+   background-color: antiquewhite;
 }
 
 .Header img {
