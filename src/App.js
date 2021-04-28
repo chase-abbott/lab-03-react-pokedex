@@ -5,8 +5,20 @@ import PokeList from './PokeList';
 import Footer from './Footer';
 import './App.css';
 import React from 'react';
+import request from 'superagent';
+
+const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex';
 
 class App extends Component {
+
+  state = {
+    pokemon: null,
+  }
+
+  async componentDidMount(){
+    const response = await request(POKEMON_API_URL);
+    console.log(response);
+  }
 
   render() {
     return (
