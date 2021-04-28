@@ -1,0 +1,8 @@
+.Header {
+   display: grid;
+   grid-template-columns: auto auto;
+}
+
+.Header img {
+    justify-self: flex-end;
+}
