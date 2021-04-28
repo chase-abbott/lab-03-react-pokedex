@@ -4,14 +4,15 @@ import './PokeItem.css';
 export default class PokeItem extends Component {
   
   render() {
+    const { monster } = this.props;
     return (
       <li className="PokeItem">
-        <h2> venusaur-mega </h2>
-        <img src="http://assets.pokemon.com/assets/cms2/img/pokedex/full/003_f2.png" alt="venusaur-mega"></img>
-        <h4> Type: Grass</h4>
-        <h4> Secondary Type: Poison</h4>
-        <h4> Attack: 100</h4>
-        <h4> Height: 24</h4>
+        <h2> {monster.pokemon} </h2>
+        <img src={monster.url_image} alt={monster.pokemon}></img>
+        <h4> Type: {monster.type_1}</h4>
+        <h4> Secondary Type: {monster.type_2}</h4>
+        <h4> Attack: {monster.attack}</h4>
+        <h4> Height: {monster.height}</h4>
         
       </li>
     );

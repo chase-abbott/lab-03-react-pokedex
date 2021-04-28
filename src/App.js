@@ -12,21 +12,23 @@ const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex';
 class App extends Component {
 
   state = {
-    pokemon: null,
+    pokemon: [],
   }
 
   async componentDidMount(){
     const response = await request(POKEMON_API_URL);
-    console.log(response);
+    this.setState({ pokemon: response.body.results });
   }
 
   render() {
+    const { pokemon } = this.state;
+    console.log(pokemon);
     return (
       <div className="App">
         <Header/>
         <Search/>
         <main>
-          <PokeList/>
+          <PokeList pokemon={pokemon}/>
         </main>
         <Footer/>
       </div>
