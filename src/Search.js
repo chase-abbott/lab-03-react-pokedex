@@ -9,6 +9,7 @@ export default class Search extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.props.onSearch(this.state);
   }
 
   handleNameFilter = ({ target }) => {
