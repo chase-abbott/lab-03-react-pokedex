@@ -33,23 +33,6 @@ class App extends Component {
    
     this.setState({ pokemon: response.body.results, primaryTypes: primaryTypes, secondaryTypes: secondaryTypes, permanentPokemon : response.body.results });
   }
-  
-  // handleSearch = ({ sortField, typeSort, secondaryTypeSort }) => {
-    
-  //   const { pokemon } = this.state;
-  //   const newData = pokemon
-  //     .filter(item => {
-  //       return !typeSort || item.type_1 === typeSort;
-  //     })
-  //     .filter(item => {
-  //       return !secondaryTypeSort || item.type_2 === secondaryTypeSort;
-  //     })
-  //   // height and attack work, not types because [sortField] is different than data
-  //   // solution may be to map to a new array
-  //     .sort((a, b) => a[sortField] - b[sortField]);
-      
-  //   this.setState({ pokemon: newData });
-  // }
 
   handleSearch = ({ search, sortField, typeSort, secondaryTypeSort }) => {
     const { permanentPokemon } = this.state;
