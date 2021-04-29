@@ -13,23 +13,23 @@ class App extends Component {
 
   state = {
     pokemon: [],
-    primaryTypes: []
+    primaryTypes: [],
+    secondaryTypes: []
   }
-
 
   componentDidMount(){
     this.getPokemon();
   }
 
-  
   async getPokemon() {
     const response = await request(POKEMON_API_URL);
     const primaryTypes = [...new Set(response.body.results.map(p => p.type_1))];
+    const secondaryTypes = [...new Set(response.body.results.map(p => p.type_2))];
    
-    this.setState({ pokemon: response.body.results, primaryTypes: primaryTypes });
+    this.setState({ pokemon: response.body.results, primaryTypes: primaryTypes, secondaryTypes: secondaryTypes });
   }
   
-  handleSearch = ({ nameFilter, sortField, typeSort }) => {
+  handleSearch = ({ nameFilter, sortField, typeSort, secondaryTypeSort }) => {
     const pokemonRegex = new RegExp(nameFilter, 'i');
     
     const { pokemon } = this.state;
@@ -38,8 +38,10 @@ class App extends Component {
         return !nameFilter || item.pokemon.match(pokemonRegex);
       })
       .filter(item => {
-        console.log(item);
         return !typeSort || item.type_1 === typeSort;
+      })
+      .filter(item => {
+        return !secondaryTypeSort || item.type_2 === secondaryTypeSort;
       })
     // height and attack work, not types because [sortField] is different than data
     // solution may be to map to a new array
@@ -49,14 +51,21 @@ class App extends Component {
   }
     
   render() {
-    const { pokemon, primaryTypes } = this.state;
+    const { pokemon, primaryTypes, secondaryTypes } = this.state;
       
     return (
       <div className="App">
         <Header/>
-        <Search primaryTypes={primaryTypes} onSearch={this.handleSearch}/>
+        <Search 
+          primaryTypes={primaryTypes} 
+          secondaryTypes={secondaryTypes}
+          onSearch={this.handleSearch}
+        />
         <main>
-          <PokeList pokemon={pokemon}/>
+          {pokemon && (pokemon.length
+            ? <PokeList pokemon={pokemon}/> 
+            : <p> Sorry! That doesn't exist</p>
+          )}
         </main>
         <Footer/>
       </div>
