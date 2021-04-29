@@ -18,7 +18,9 @@ class App extends Component {
     secondaryTypes: [],
     search: '',
     sortDirection: 'asc',
-    sortParameter: 'pokemon'
+    sortParameter: '',
+    type_1Sort: '',
+    type_2Sort: '',
   }
 
   componentDidMount(){
@@ -40,37 +42,26 @@ class App extends Component {
   }
 
   async sortPokemon() {
-    const { search, sortDirection, sortParameter } = this.state;
+    const { search, 
+      sortDirection, 
+      sortParameter, 
+      type_1Sort, 
+      type_2Sort } = this.state;
+    console.log(type_1Sort);
     const response = await request
       .get(POKEMON_API_URL)
-      .query({ sort : sortParameter, direction : sortDirection, pokemon : search });
+      .query({ sort : sortParameter,
+        type_1 : type_1Sort,
+        type_2: type_2Sort, 
+        direction : sortDirection, 
+        pokemon : search });
 
     this.setState({ pokemon : response.body.results });
   }
 
   handleSearch = ({ search, sortField, typeSort, secondaryTypeSort }) => {
-    // const { permanentPokemon } = this.state;
-    // const newData = permanentPokemon
-    //   .sort((a, b) => {
-    //     if (a[sortField] < b[sortField]) return -1;
-    //     if (a[sortField] > b[sortField]) return 1;
-    //     return 0;
-    //   });
-    // this.sortPokemon();
-    
-    //   .filter(item => {
-    //     return !typeSort || item.type_1 === typeSort;
-    //   })
-    //   .filter(item => {
-    //     return !secondaryTypeSort || item.type_2 === secondaryTypeSort;
-    //   })
-    // // height and attack work, not types because [sortField] is different than data
-    // // solution may be to map to a new array
-    
-    // this.setState({ pokemon: newData });
-    console.log(sortField);
     this.setState(
-      { search : search, sortParameter : sortField },
+      { search : search, sortParameter : sortField, type_1Sort : typeSort, type_2Sort : secondaryTypeSort },
       () => this.sortPokemon(),
     );
 
