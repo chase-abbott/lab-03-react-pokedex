@@ -79,7 +79,6 @@ class App extends Component {
     );
   }
 
-
   handlePageForward = () => {
     const { page } = this.state;
     this.setState({ page: (page + 1) },
@@ -96,10 +95,6 @@ class App extends Component {
       );
     }
   }
-
-  // handlePageChange = ({ target }) => {
-  //   this.setState({ page: target.value });
-  // }
     
   render() {
     const { pokemon, primaryTypes, secondaryTypes, page } = this.state;
