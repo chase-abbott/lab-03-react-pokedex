@@ -13,7 +13,7 @@ export default class PokeItem extends Component {
         <h4> Secondary Type: {monster.type_2}</h4>
         <h4> Attack: {monster.attack}</h4>
         <h4> Height: {monster.height}</h4>
-        
+        <a href={monster.pokedex} target="_blank" rel="noreferrer"> PokeDex </a>
       </li>
     );
   }
