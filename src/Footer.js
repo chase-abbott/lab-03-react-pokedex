@@ -2,8 +2,19 @@ import { Component } from 'react';
 import './Footer.css';
 
 export default class Footer extends Component {
+  state = {
+    items: 25,
+  }
   
+  handleChange = ({ target }) => {
+    this.setState({ items : Number(target.value) },
+      () => this.props.onPageNumberChange(this.state)
+    );
+    
+  }
+
   render() {
+    const { items } = this.state;
     return (
       <footer className="Footer">
         <h6>
@@ -11,7 +22,11 @@ export default class Footer extends Component {
         </h6>
         <label>
           Items per page
-          <select>
+          <select
+            onChange={this.handleChange}
+          
+            value={items}
+          >
             <option value="10"> 10 </option>
             <option value="25"> 25 </option>
             <option value="50"> 50</option>

@@ -7,7 +7,7 @@ import './App.css';
 import React from 'react';
 import request from 'superagent';
 
-const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex?perPage=50';
+const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex';
 
 class App extends Component {
 
@@ -22,6 +22,7 @@ class App extends Component {
     type_1Sort: '',
     type_2Sort: '',
     page: 1,
+    itemsPerPage: 25,
   }
 
   componentDidMount(){
@@ -29,11 +30,12 @@ class App extends Component {
   }
 
   async getPokemon() {
-    const { page } = this.state;
+    const { page, itemsPerPage } = this.state;
 
     const response = await request
       .get(POKEMON_API_URL)
-      .query({ page : page });
+      .query({ page : page,
+        perPage: itemsPerPage });
 
     const primaryTypes = [...new Set(response.body.results.map(p => p.type_1))];
     const secondaryTypes = [...new Set(response.body.results.map(p => p.type_2))];
@@ -50,7 +52,8 @@ class App extends Component {
       sortParameter, 
       type_1Sort, 
       type_2Sort,
-      page
+      page,
+      itemsPerPage,
     } = this.state;
 
     const response = await request
@@ -60,7 +63,8 @@ class App extends Component {
         type_2: type_2Sort, 
         direction : sortDirection, 
         pokemon : search,
-        page: page
+        page: page,
+        perPage: itemsPerPage
       });
 
     this.setState({ pokemon : response.body.results });
@@ -95,6 +99,12 @@ class App extends Component {
       );
     }
   }
+
+  handleItemsPerPage = ({ items }) => {
+    this.setState({ itemsPerPage : items },
+      () => this.sortPokemon()
+    );
+  }
     
   render() {
     const { pokemon, primaryTypes, secondaryTypes, page } = this.state;
@@ -117,7 +127,7 @@ class App extends Component {
             : <p> Sorry! That doesn't exist</p>
           )}
         </main>
-        <Footer/>
+        <Footer onPageNumberChange={this.handleItemsPerPage}/>
       </div>
     );
   }
