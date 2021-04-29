@@ -1,3 +1,9 @@
 .Footer {
   background-color: rgba(0, 0, 0, .1);
+  display: grid;
+  grid-template-columns: 1fr 1.1fr; 
+}
+
+.Footer label {
+  align-self: center;
 }
