@@ -3,7 +3,7 @@ import './Search.css';
 
 export default class Search extends Component {
   state = {
-    nameFilter: '',
+    search: '',
     sortField: '',
     typeSort: '',
     secondaryTypeSort: '',
@@ -14,8 +14,8 @@ export default class Search extends Component {
     this.props.onSearch(this.state);
   }
 
-  handleNameFilter = ({ target }) => {
-    this.setState({ nameFilter: target.value });
+  handleSearch = ({ target }) => {
+    this.setState({ search: target.value });
   }
 
   handleSortField = ({ target }) => {
@@ -31,7 +31,7 @@ export default class Search extends Component {
   }
 
   render() {
-    const { nameFilter, sortField, typeSort, secondaryTypeSort } = this.state;
+    const { sortField, typeSort, secondaryTypeSort, search } = this.state;
     const { primaryTypes, secondaryTypes } = this.props;
     return (
 
@@ -40,9 +40,9 @@ export default class Search extends Component {
         onSubmit={this.handleSubmit}>
 
         <input
-          name="nameFilter"
-          value={nameFilter}
-          onChange={this.handleNameFilter}
+          name="search"
+          value={search}
+          onChange={this.handleSearch}
         ></input>
 
         <select
