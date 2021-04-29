@@ -13,7 +13,6 @@ class App extends Component {
 
   state = {
     pokemon: [],
-    permanentPokemon: [],
     primaryTypes: [],
     secondaryTypes: [],
     search: '',
@@ -27,6 +26,7 @@ class App extends Component {
 
   componentDidMount(){
     this.getPokemon();
+    this.getTypes();
   }
 
   async getPokemon() {
@@ -37,13 +37,30 @@ class App extends Component {
       .query({ page : page,
         perPage: itemsPerPage });
 
+    this.setState({ pokemon: response.body.results });
+  }
+
+  async getTypes() {
+    const response = await request
+      .get(POKEMON_API_URL)
+      .query({ perPage: 801 });
+
     const primaryTypes = [...new Set(response.body.results.map(p => p.type_1))];
     const secondaryTypes = [...new Set(response.body.results.map(p => p.type_2))];
-  
-    this.setState({ pokemon: response.body.results,
-      primaryTypes: primaryTypes,
-      secondaryTypes: secondaryTypes, 
-      permanentPokemon : response.body.results });
+
+    const sortedPrimaryTypes = primaryTypes.sort((a, b) => {
+      if (a[0] > b[0]) return 1;
+      if (a[0] < b[0]) return -1;
+      return 0;
+    });
+   
+    const sortedSecondaryTypes = secondaryTypes.sort((a, b) => {
+      if (a[0] > b[0]) return 1;
+      if (a[0] < b[0]) return -1;
+      return 0;
+    });
+   
+    this.setState({ primaryTypes : sortedPrimaryTypes, secondaryTypes : sortedSecondaryTypes });
   }
 
   async sortPokemon() {
