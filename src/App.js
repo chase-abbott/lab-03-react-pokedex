@@ -13,6 +13,7 @@ class App extends Component {
 
   state = {
     pokemon: [],
+    permanentPokemon: [],
     primaryTypes: [],
     secondaryTypes: []
   }
@@ -26,14 +27,14 @@ class App extends Component {
     const primaryTypes = [...new Set(response.body.results.map(p => p.type_1))];
     const secondaryTypes = [...new Set(response.body.results.map(p => p.type_2))];
    
-    this.setState({ pokemon: response.body.results, primaryTypes: primaryTypes, secondaryTypes: secondaryTypes });
+    this.setState({ pokemon: response.body.results, primaryTypes: primaryTypes, secondaryTypes: secondaryTypes, permanentPokemon : response.body.results });
   }
   
   handleSearch = ({ nameFilter, sortField, typeSort, secondaryTypeSort }) => {
     const pokemonRegex = new RegExp(nameFilter, 'i');
     
-    const { pokemon } = this.state;
-    const newData = pokemon
+    const { permanentPokemon } = this.state;
+    const newData = permanentPokemon
       .filter(item => {
         return !nameFilter || item.pokemon.match(pokemonRegex);
       })
