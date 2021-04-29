@@ -29,7 +29,7 @@ class App extends Component {
     this.setState({ pokemon: response.body.results, primaryTypes: primaryTypes });
   }
   
-  handleSearch = ({ nameFilter, sortField }) => {
+  handleSearch = ({ nameFilter, sortField, typeSort }) => {
     const pokemonRegex = new RegExp(nameFilter, 'i');
     
     const { pokemon } = this.state;
@@ -37,11 +37,14 @@ class App extends Component {
       .filter(item => {
         return !nameFilter || item.pokemon.match(pokemonRegex);
       })
+      .filter(item => {
+        console.log(item);
+        return !typeSort || item.type_1 === typeSort;
+      })
     // height and attack work, not types because [sortField] is different than data
     // solution may be to map to a new array
       .sort((a, b) => a[sortField] - b[sortField]);
       
-    if (!sortField) this.getPokemon();
     this.setState({ pokemon: newData });
   }
     
