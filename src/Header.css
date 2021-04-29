@@ -6,4 +6,6 @@
 
 .Header img {
     justify-self: flex-end;
+    width: 50px;
+    align-self: center;
 }
