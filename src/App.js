@@ -7,7 +7,7 @@ import './App.css';
 import React from 'react';
 import request from 'superagent';
 
-const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex';
+const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex?perPage=50';
 
 class App extends Component {
 
@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   async getPokemon() {
-    const response = await request(POKEMON_API_URL);
+    const response = await request.get(POKEMON_API_URL);
     const primaryTypes = [...new Set(response.body.results.map(p => p.type_1))];
     const secondaryTypes = [...new Set(response.body.results.map(p => p.type_2))];
    
