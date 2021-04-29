@@ -21,6 +21,7 @@ class App extends Component {
     sortParameter: '',
     type_1Sort: '',
     type_2Sort: '',
+    page: 1,
   }
 
   componentDidMount(){
@@ -46,7 +47,8 @@ class App extends Component {
       sortDirection, 
       sortParameter, 
       type_1Sort, 
-      type_2Sort } = this.state;
+      type_2Sort,
+      page } = this.state;
 
     const response = await request
       .get(POKEMON_API_URL)
@@ -54,7 +56,8 @@ class App extends Component {
         type_1 : type_1Sort,
         type_2: type_2Sort, 
         direction : sortDirection, 
-        pokemon : search });
+        pokemon : search,
+        page: page });
 
     this.setState({ pokemon : response.body.results });
   }
@@ -71,28 +74,48 @@ class App extends Component {
 
 
   }
-    
-  render() {
-    const { pokemon, primaryTypes, secondaryTypes } = this.state;
-      
-    return (
-      <div className="App">
-        <Header/>
-        <Search 
-          primaryTypes={primaryTypes} 
-          secondaryTypes={secondaryTypes}
-          onSearch={this.handleSearch}
-        />
-        <main>
-          {pokemon && (pokemon.length
-            ? <PokeList pokemon={pokemon}/> 
-            : <p> Sorry! That doesn't exist</p>
-          )}
-        </main>
-        <Footer/>
-      </div>
-    );
+
+  handlePageForward = () => {
+    const { page } = this.state;
+    this.setState({ page: (page + 1) });
   }
+
+   handlePageBack = () => {
+     const { page } = this.state;
+     if (page > 1){
+       this.setState({ page: (page - 1) });
+     }
+   }
+
+    handlePageChange = ({ target }) => {
+      this.setState({ page: target.value });
+    }
+    
+    render() {
+      const { pokemon, primaryTypes, secondaryTypes, page } = this.state;
+      
+      return (
+        <div className="App">
+          <Header/>
+          <Search 
+            primaryTypes={primaryTypes} 
+            secondaryTypes={secondaryTypes}
+            onSearch={this.handleSearch}
+            page={page}
+            pageForward={this.handlePageForward}
+            pageBack={this.handlePageBack}
+            pageChange={this.handPageChange}
+          />
+          <main>
+            {pokemon && (pokemon.length
+              ? <PokeList pokemon={pokemon}/> 
+              : <p> Sorry! That doesn't exist</p>
+            )}
+          </main>
+          <Footer/>
+        </div>
+      );
+    }
 
 }
 

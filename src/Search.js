@@ -8,7 +8,6 @@ export default class Search extends Component {
     typeSort: '',
     secondaryTypeSort: '',
     direction: 'asc',
-    page: 1,
   }
 
   handleSubmit = (e) => {
@@ -37,26 +36,21 @@ export default class Search extends Component {
   }
 
   handlePageForward = () => {
-    const { page } = this.state;
-    this.setState({ page: (page + 1) });
+    this.props.pageForward();
   }
 
   handlePageBack = () => {
-    const { page } = this.state;
-    if (page > 1){
-      this.setState({ page: (page - 1) });
-    }
+    this.props.pageBack();
   }
 
-  handlePageChange = ({ target }) => {
-    this.setState({ page: target.value });
+  handlePageChange = () => {
+    this.props.pageChange();
   }
-
 
 
   render() {
-    const { sortField, typeSort, secondaryTypeSort, search, direction, page } = this.state;
-    const { primaryTypes, secondaryTypes } = this.props;
+    const { sortField, typeSort, secondaryTypeSort, search, direction } = this.state;
+    const { primaryTypes, secondaryTypes, page } = this.props;
     return (
       <div className="SearchDiv">
 
