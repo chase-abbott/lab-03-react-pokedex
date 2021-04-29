@@ -50,6 +50,7 @@ class App extends Component {
       sortParameter, 
       type_1Sort, 
       type_2Sort,
+      page
     } = this.state;
 
     const response = await request
@@ -59,19 +60,12 @@ class App extends Component {
         type_2: type_2Sort, 
         direction : sortDirection, 
         pokemon : search,
+        page: page
       });
 
     this.setState({ pokemon : response.body.results });
   }
   
-  async pageChange() {
-    const { page } = this.state;
-    const response = await request
-      .get(POKEMON_API_URL)
-      .query({ page : page });
-
-    this.setState({ pokemon: response.body.results });
-  } 
 
   handleSearch = ({ search, sortField, typeSort, secondaryTypeSort, direction }) => {
     this.setState(
@@ -89,7 +83,7 @@ class App extends Component {
   handlePageForward = () => {
     const { page } = this.state;
     this.setState({ page: (page + 1) },
-      () => this.pageChange()
+      () => this.sortPokemon()
     );
     
   }
@@ -98,7 +92,7 @@ class App extends Component {
     const { page } = this.state;
     if (page > 1){
       this.setState({ page: (page - 1) },
-        () => this.pageChange()
+        () => this.sortPokemon()
       );
     }
   }
