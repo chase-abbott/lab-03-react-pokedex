@@ -78,6 +78,7 @@ class App extends Component {
         type_1Sort : typeSort, 
         type_2Sort : secondaryTypeSort,
         sortDirection : direction,
+        page: 1
       },
       () => this.sortPokemon(),
     );

@@ -24,7 +24,6 @@ export default class Footer extends Component {
           Items per page
           <select
             onChange={this.handleChange}
-          
             value={items}
           >
             <option value="10"> 10 </option>
