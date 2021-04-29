@@ -43,10 +43,6 @@ export default class Search extends Component {
     this.props.pageBack();
   }
 
-  handlePageChange = () => {
-    this.props.pageChange();
-  }
-
 
   render() {
     const { sortField, typeSort, secondaryTypeSort, search, direction } = this.state;
@@ -114,10 +110,9 @@ export default class Search extends Component {
             onClick={this.handlePageBack}
           >⬅</button>
 
-          <input
-            value={page}
+          <p
             onChange={this.handlePageChange}
-          ></input>
+          >{page}</p>
          
           <button
             value="forward"
