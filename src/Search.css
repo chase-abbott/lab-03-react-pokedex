@@ -1,8 +1,14 @@
+.SearchDiv {
+  display: flex;
+  flex-grow: 5;
+}
+
 .Search {
   display: grid;
   grid-template-columns: 1fr .5fr .1fr .5fr .5fr 50px;
   padding-left: 20px;
   padding-right: 20px;
+  flex-grow: 2;
 }
 
 .Search input {
@@ -14,6 +20,19 @@
     flex-grow: 1;
 }
 
-.Search button {
+.PagesDiv {
+  display: flex;
+  align-items: center;
+  
+}
 
+.PagesDiv input {
+  width: 2rem;
+  height: 1.9rem
+}
+
+.PagesDiv button {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
 }
