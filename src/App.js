@@ -13,31 +13,45 @@ class App extends Component {
 
   state = {
     pokemon: [],
+    primaryTypes: []
   }
 
-  async componentDidMount(){
+
+  componentDidMount(){
+    this.getPokemon();
+  }
+
+  
+  async getPokemon() {
     const response = await request(POKEMON_API_URL);
-    this.setState({ pokemon: response.body.results });
+    const primaryTypes = [...new Set(response.body.results.map(p => p.type_1))];
+   
+    this.setState({ pokemon: response.body.results, primaryTypes: primaryTypes });
   }
-
+  
   handleSearch = ({ nameFilter, sortField }) => {
     const pokemonRegex = new RegExp(nameFilter, 'i');
-
+    
     const { pokemon } = this.state;
     const newData = pokemon
       .filter(item => {
         return !nameFilter || item.pokemon.match(pokemonRegex);
-      });
+      })
+    // height and attack work, not types because [sortField] is different than data
+    // solution may be to map to a new array
+      .sort((a, b) => a[sortField] - b[sortField]);
+      
+    if (!sortField) this.getPokemon();
     this.setState({ pokemon: newData });
   }
-
+    
   render() {
-    const { pokemon } = this.state;
-    console.log(pokemon);
+    const { pokemon, primaryTypes } = this.state;
+      
     return (
       <div className="App">
         <Header/>
-        <Search onSearch={this.handleSearch}/>
+        <Search primaryTypes={primaryTypes} onSearch={this.handleSearch}/>
         <main>
           <PokeList pokemon={pokemon}/>
         </main>

@@ -5,6 +5,7 @@ export default class Search extends Component {
   state = {
     nameFilter: '',
     sortField: '',
+    typeSort: '',
   }
 
   handleSubmit = (e) => {
@@ -20,8 +21,13 @@ export default class Search extends Component {
     this.setState({ sortField: target.value });
   }
 
+  handleTypeSort = ({ target }) => {
+    this.setState({ typeSort: target.value });
+  }
+
   render() {
-    const { nameFilter, sortField } = this.state;
+    const { nameFilter, sortField, typeSort } = this.state;
+    const { primaryTypes } = this.props;
     return (
 
       <form 
@@ -40,10 +46,18 @@ export default class Search extends Component {
           onChange={this.handleSortField}
         >
           <option value="">...sort by</option>
-          <option value="type"> Type </option>
-          <option value="secondary-type"> Secondary Type</option>
           <option value="attack"> Attack </option>
           <option value="height"> Height </option>
+        </select>
+        <select
+          name="typeSort"
+          value={typeSort}
+          onChange={this.handleTypeSort}
+        >
+          <option value=""> ...type</option>
+          {primaryTypes.map(item => (
+            <option value={item}> {item} </option>
+          ))}  
         </select>
         <button>👀</button>
       </form>
