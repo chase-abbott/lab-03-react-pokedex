@@ -7,12 +7,13 @@ import './App.css';
 import React from 'react';
 import request from 'superagent';
 
-const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex';
+const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex?perPage=50';
 
 class App extends Component {
 
   state = {
     pokemon: [],
+    permanentPokemon: [],
     primaryTypes: [],
     secondaryTypes: [],
     search: ''
@@ -30,7 +31,7 @@ class App extends Component {
     const primaryTypes = [...new Set(response.body.results.map(p => p.type_1))];
     const secondaryTypes = [...new Set(response.body.results.map(p => p.type_2))];
    
-    this.setState({ pokemon: response.body.results, primaryTypes: primaryTypes, secondaryTypes: secondaryTypes });
+    this.setState({ pokemon: response.body.results, primaryTypes: primaryTypes, secondaryTypes: secondaryTypes, permanentPokemon : response.body.results });
   }
   
   // handleSearch = ({ sortField, typeSort, secondaryTypeSort }) => {
@@ -51,8 +52,8 @@ class App extends Component {
   // }
 
   handleSearch = ({ search, sortField, typeSort, secondaryTypeSort }) => {
-    const { pokemon } = this.state;
-    const newData = pokemon
+    const { permanentPokemon } = this.state;
+    const newData = permanentPokemon
       .filter(item => {
         return !typeSort || item.type_1 === typeSort;
       })
@@ -66,7 +67,7 @@ class App extends Component {
     // this.setState({ pokemon: newData });
     this.setState(
       { search : search, pokemon : newData },
-      // () => this.getPokemon(),
+      () => this.getPokemon(),
     );
 
 
