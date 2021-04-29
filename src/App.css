@@ -1,7 +1,7 @@
 .App {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  background-color: rgb(114, 185, 114);
+  background: linear-gradient(.25turn, #e66465, #9198e5);
 }
 
 /* TODO: remove **/
