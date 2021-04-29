@@ -7,6 +7,7 @@ export default class Search extends Component {
     sortField: '',
     typeSort: '',
     secondaryTypeSort: '',
+    direction: 'asc',
   }
 
   handleSubmit = (e) => {
@@ -30,8 +31,12 @@ export default class Search extends Component {
     this.setState({ secondaryTypeSort: target.value });
   }
 
+  handleDirection = ({ target }) => {
+    this.setState({ direction: target.value });
+  }
+
   render() {
-    const { sortField, typeSort, secondaryTypeSort, search } = this.state;
+    const { sortField, typeSort, secondaryTypeSort, search, direction } = this.state;
     const { primaryTypes, secondaryTypes } = this.props;
     return (
 
@@ -53,6 +58,15 @@ export default class Search extends Component {
           <option value="">...sort by</option>
           <option value="attack"> Attack </option>
           <option value="height"> Height </option>
+        </select>
+        
+        <select
+          name="direction"
+          value={direction}
+          onChange={this.handleDirection}
+        >
+          <option value="asc"> Low to High </option>
+          <option value="desc"> High to Low </option>
         </select>
 
         <select
@@ -76,6 +90,8 @@ export default class Search extends Component {
             <option key={item} value={item}> {item} </option>
           ))}  
         </select>
+
+       
         <button>👀</button>
       </form>
     );

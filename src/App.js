@@ -47,7 +47,7 @@ class App extends Component {
       sortParameter, 
       type_1Sort, 
       type_2Sort } = this.state;
-    console.log(type_1Sort);
+
     const response = await request
       .get(POKEMON_API_URL)
       .query({ sort : sortParameter,
@@ -59,9 +59,13 @@ class App extends Component {
     this.setState({ pokemon : response.body.results });
   }
 
-  handleSearch = ({ search, sortField, typeSort, secondaryTypeSort }) => {
+  handleSearch = ({ search, sortField, typeSort, secondaryTypeSort, direction }) => {
     this.setState(
-      { search : search, sortParameter : sortField, type_1Sort : typeSort, type_2Sort : secondaryTypeSort },
+      { search : search, 
+        sortParameter : sortField, 
+        type_1Sort : typeSort, 
+        type_2Sort : secondaryTypeSort,
+        sortDirection : direction },
       () => this.sortPokemon(),
     );
 

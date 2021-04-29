@@ -1,6 +1,6 @@
 .Search {
   display: grid;
-  grid-template-columns: 1fr .5fr .5fr .5fr 50px;
+  grid-template-columns: 1fr .5fr .1fr .5fr .5fr 50px;
   padding-left: 20px;
   padding-right: 20px;
 }
