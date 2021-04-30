@@ -9,8 +9,22 @@
   height: 200px;
 }
 
+.PieChart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  max-width: 40%; 
+}
+
 .VictoryContainer {
   justify-self: center;
   margin-left: 10px;
-  max-width: 80%; 
+ 
+}
+
+.PieChart h3 {
+  margin: 0;
+  max-width: 150px;
+ 
 }

@@ -30,7 +30,7 @@ class App extends Component {
   componentDidMount(){
     this.getPokemon();
     this.getTypes();
-    this.makeGraphData();
+    // this.makeGraphData();
   }
 
   async getPokemon() {
@@ -129,7 +129,7 @@ class App extends Component {
   }
 
   async makeGraphData() {
-    const { type_1Sort } = this.state;
+    const { type_1Sort, type_2Sort } = this.state;
     const response = await request
       .get(POKEMON_API_URL)
       .query({ 
@@ -151,25 +151,59 @@ class App extends Component {
       
       return container;
     });
+    if (type_2Sort){
+      this.setState({ graphData : [] });
+    }
 
-        
-    this.setState({ graphData : newData, secondaryTypes : uniqueTypes });
+    if (!type_2Sort){   
+      this.setState({ graphData : newData, secondaryTypes : uniqueTypes });
+    }
   }
       
       
     
   render() {
-    const { pokemon, primaryTypes, secondaryTypes, page, graphData } = this.state;
+    const { pokemon, primaryTypes, secondaryTypes, page, graphData, type_1Sort } = this.state;
     return (
       <div className="App">
         <Header/>
-
-        <VictoryPie 
-          className="VictoryPie"
-          data={graphData}
-          x="type"
-          y="count"
-        /> 
+        <div className="PieChart">
+          {type_1Sort 
+            ? <> <h3> Secondary Types </h3> 
+              <VictoryPie 
+                className="VictoryPie"
+                colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy']}
+                innerRadius={50}
+                padAngle={1}
+                data={graphData}
+                x="type"
+                y="count"
+                cornerRadius={10} 
+                events={[{
+                  target:'data',
+                  eventHandlers: {
+                    onClick: () => {
+                      return [
+                        {
+                          target: 'data',
+                          mutation: ({ style }) => {
+                            return style.fill === '#c43a31' ? null : { style: { fill: '#c43a31' } };
+                          }
+                        }];},
+                    onload: () => {
+                        
+                    } }
+                }]}
+              />
+                 
+   
+            </>
+              
+            : <p></p>
+          }
+          
+      
+        </div>
        
         <Search 
           primaryTypes={primaryTypes} 
