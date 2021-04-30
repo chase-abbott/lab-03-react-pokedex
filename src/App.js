@@ -6,10 +6,9 @@ import Footer from './Footer';
 import './App.css';
 import React from 'react';
 import request from 'superagent';
-import { VictoryPie, VictoryChart, VictoryTheme } from 'victory';
+import { VictoryPie } from 'victory';
 
 const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex';
-const POKEMON_API_TYPES = 'https://pokedex-alchemy.herokuapp.com/api/pokedex/types';
 
 class App extends Component {
 
@@ -188,12 +187,23 @@ class App extends Component {
                           target: 'data',
                           mutation: ({ style }) => {
                             return style.fill === '#c43a31' ? null : { style: { fill: '#c43a31' } };
-                          }
+                          },
+                          
                         }];},
-                    onload: () => {
+                        
+                    onLoad: () => {
                         
                     } }
                 }]}
+                animate={{
+                  onExit: {
+                    duration: 500,
+                    before: () => ({
+                      _y: 0,
+                      fill: 'orange'
+                    })
+                  }
+                }}
               />
                  
    
