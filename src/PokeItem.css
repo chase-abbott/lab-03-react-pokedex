@@ -1,6 +1,5 @@
 .PokeItem {
-    background: #7479b9;
-    display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 2%;

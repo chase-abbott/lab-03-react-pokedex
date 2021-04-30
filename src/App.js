@@ -151,15 +151,10 @@ class App extends Component {
           theme={VictoryTheme.material}
         >
           <VictoryAxis
-          // tickValues specifies both the number of ticks and where
-          // they are placed on the axis
-            // tickFormat={['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4']}
          
           />
           <VictoryAxis
             dependentAxis
-          // tickFormat specifies how ticks should be displayed
-           
           />
           <VictoryBar horizontal
             className="VictoryBar"
