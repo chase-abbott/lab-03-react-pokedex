@@ -129,10 +129,19 @@ class App extends Component {
   }
 
   async makeGraphData() {
+    const { type_1Sort, graphData } = this.state;
     const response = await request
-      .get(POKEMON_API_TYPES);
+      .get(POKEMON_API_URL)
+      .query({ 
+        type_1 : type_1Sort,
+        perPage: 801 });
+
+    const uniqueTypes = [...new Set(response.body.results.map(item => item.type_2))];
+
+    console.log(uniqueTypes);
+
       
-    this.setState({ graphData : response.body });
+    this.setState({ graphData : response.body, secondaryTypes : uniqueTypes });
   }
 
  
@@ -142,7 +151,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
-        <VictoryChart
+        {/* <VictoryChart
           animate={{ duration: 2000 }}
           viewbox="0, 0, width, height"
           width={800}
@@ -162,7 +171,7 @@ class App extends Component {
             x="type"
             y="count"
           />
-        </VictoryChart>
+        </VictoryChart> */}
       
       
         
@@ -177,7 +186,7 @@ class App extends Component {
         />
         <main>
           {pokemon && (pokemon.length
-            ? <PokeList pokemon={pokemon}/> 
+            ? <PokeList pokemon={pokemon} /> 
             : <p> Sorry! That doesn't exist</p>
           )}
         </main>
