@@ -6,7 +6,7 @@ import Footer from './Footer';
 import './App.css';
 import React from 'react';
 import request from 'superagent';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import { VictoryPie, VictoryChart, VictoryTheme } from 'victory';
 
 const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex';
 const POKEMON_API_TYPES = 'https://pokedex-alchemy.herokuapp.com/api/pokedex/types';
@@ -129,7 +129,7 @@ class App extends Component {
   }
 
   async makeGraphData() {
-    const { type_1Sort, graphData } = this.state;
+    const { type_1Sort } = this.state;
     const response = await request
       .get(POKEMON_API_URL)
       .query({ 
@@ -137,44 +137,40 @@ class App extends Component {
         perPage: 801 });
 
     const uniqueTypes = [...new Set(response.body.results.map(item => item.type_2))];
-
-    console.log(uniqueTypes);
-
+    const allTypes = response.body.results.map(type => type.type_2);
+    
+        
+    const newData = uniqueTypes.map(type => {
+      const container = {};
+      const typeCount = allTypes.filter(item => {
+        if (item === type) return item;
+      }).length;
       
-    this.setState({ graphData : response.body, secondaryTypes : uniqueTypes });
-  }
+      container.type = type;
+      container.count = typeCount;
+      
+      return container;
+    });
 
- 
+        
+    this.setState({ graphData : newData, secondaryTypes : uniqueTypes });
+  }
+      
+      
     
   render() {
     const { pokemon, primaryTypes, secondaryTypes, page, graphData } = this.state;
     return (
       <div className="App">
         <Header/>
-        {/* <VictoryChart
-          animate={{ duration: 2000 }}
-          viewbox="0, 0, width, height"
-          width={800}
-          height={400}
-          domainPadding={10}
-          theme={VictoryTheme.material}
-        >
-          <VictoryAxis
-         
-          />
-          <VictoryAxis
-            dependentAxis
-          />
-          <VictoryBar horizontal
-            className="VictoryBar"
-            data={graphData}
-            x="type"
-            y="count"
-          />
-        </VictoryChart> */}
-      
-      
-        
+
+        <VictoryPie 
+          className="VictoryPie"
+          data={graphData}
+          x="type"
+          y="count"
+        /> 
+       
         <Search 
           primaryTypes={primaryTypes} 
           secondaryTypes={secondaryTypes}
