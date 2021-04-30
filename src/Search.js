@@ -44,6 +44,8 @@ export default class Search extends Component {
   }
 
 
+
+
   render() {
     const { sortField, typeSort, secondaryTypeSort, search, direction } = this.state;
     const { primaryTypes, secondaryTypes, page } = this.props;

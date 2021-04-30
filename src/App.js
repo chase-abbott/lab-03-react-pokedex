@@ -6,7 +6,7 @@ import Footer from './Footer';
 import './App.css';
 import React from 'react';
 import request from 'superagent';
-import { VictoryPie } from 'victory';
+import { VictoryChart, VictoryPie } from 'victory';
 
 const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex';
 
@@ -150,6 +150,7 @@ class App extends Component {
       
       return container;
     });
+
     if (type_2Sort){
       this.setState({ graphData : [] });
     }
@@ -170,6 +171,7 @@ class App extends Component {
           {type_1Sort 
             ? <> <h3> Secondary Types </h3> 
               <VictoryPie 
+                animation={{ duration: 5000 }}
                 className="VictoryPie"
                 colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy']}
                 innerRadius={50}
@@ -196,6 +198,7 @@ class App extends Component {
                     } }
                 }]}
                 animate={{
+                  duration: 2000,
                   onExit: {
                     duration: 500,
                     before: () => ({
@@ -205,8 +208,6 @@ class App extends Component {
                   }
                 }}
               />
-                 
-   
             </>
               
             : <p></p>
