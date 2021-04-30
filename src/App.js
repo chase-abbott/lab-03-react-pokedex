@@ -6,8 +6,10 @@ import Footer from './Footer';
 import './App.css';
 import React from 'react';
 import request from 'superagent';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
 const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex';
+const POKEMON_API_TYPES = 'https://pokedex-alchemy.herokuapp.com/api/pokedex/types';
 
 class App extends Component {
 
@@ -22,11 +24,13 @@ class App extends Component {
     type_2Sort: '',
     page: 1,
     itemsPerPage: 25,
+    graphData: []
   }
 
   componentDidMount(){
     this.getPokemon();
     this.getTypes();
+    this.makeGraphData();
   }
 
   async getPokemon() {
@@ -84,10 +88,10 @@ class App extends Component {
         perPage: itemsPerPage
       });
 
-    this.setState({ pokemon : response.body.results });
+    this.setState({ pokemon : response.body.results },
+      () => this.makeGraphData());
   }
   
-
   handleSearch = ({ search, sortField, typeSort, secondaryTypeSort, direction }) => {
     this.setState(
       { search : search, 
@@ -123,13 +127,50 @@ class App extends Component {
       () => this.sortPokemon()
     );
   }
+
+  async makeGraphData() {
+    const response = await request
+      .get(POKEMON_API_TYPES);
+      
+    this.setState({ graphData : response.body });
+  }
+
+ 
     
   render() {
-    const { pokemon, primaryTypes, secondaryTypes, page } = this.state;
-      
+    const { pokemon, primaryTypes, secondaryTypes, page, graphData } = this.state;
     return (
       <div className="App">
         <Header/>
+        <VictoryChart
+          animate={{ duration: 2000 }}
+          viewbox="0, 0, width, height"
+          width={800}
+          height={400}
+          domainPadding={10}
+          theme={VictoryTheme.material}
+        >
+          <VictoryAxis
+          // tickValues specifies both the number of ticks and where
+          // they are placed on the axis
+            // tickFormat={['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4']}
+         
+          />
+          <VictoryAxis
+            dependentAxis
+          // tickFormat specifies how ticks should be displayed
+           
+          />
+          <VictoryBar horizontal
+            className="VictoryBar"
+            data={graphData}
+            x="type"
+            y="count"
+          />
+        </VictoryChart>
+      
+      
+        
         <Search 
           primaryTypes={primaryTypes} 
           secondaryTypes={secondaryTypes}
