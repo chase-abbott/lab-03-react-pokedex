@@ -104,8 +104,7 @@ export default class Search extends Component {
             ))}  
           </select>
 
-       
-          <button>Search</button>
+          <button>👀</button>
         </form>
         <div className="PagesDiv">
           <button 

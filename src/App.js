@@ -138,9 +138,7 @@ class App extends Component {
 
     const uniqueTypes = [...new Set(response.body.results.map(item => item.type_2))];
     const allTypes = response.body.results.map(type => type.type_2);
-    
-    console.log(response.body.results);
-        
+            
     const newData = uniqueTypes.map(type => {
       const container = {};
       const typeCount = allTypes.filter(item => {
@@ -165,7 +163,7 @@ class App extends Component {
       <div className="App">
         <Header/>
         <div className="PieChart">
-          {type_1Sort && pokemon
+          {type_1Sort && pokemon[0]
             ? <> <h3> Secondary Types </h3> 
               <VictoryPie 
                 animation={{ duration: 5000 }}
