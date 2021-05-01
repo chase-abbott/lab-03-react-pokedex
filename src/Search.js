@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import './Search.css';
+import Button from '@material-ui/core/Button';
 
 export default class Search extends Component {
   state = {
@@ -104,7 +105,7 @@ export default class Search extends Component {
           </select>
 
        
-          <button>👀</button>
+          <button>Search</button>
         </form>
         <div className="PagesDiv">
           <button 

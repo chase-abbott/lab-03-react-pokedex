@@ -128,16 +128,18 @@ class App extends Component {
   }
 
   async makeGraphData() {
-    const { type_1Sort, type_2Sort } = this.state;
+    const { type_1Sort, type_2Sort, pokemon, search } = this.state;
     const response = await request
       .get(POKEMON_API_URL)
       .query({ 
         type_1 : type_1Sort,
-        perPage: 801 });
+        perPage: 801,
+        pokemon : search });
 
     const uniqueTypes = [...new Set(response.body.results.map(item => item.type_2))];
     const allTypes = response.body.results.map(type => type.type_2);
     
+    console.log(response.body.results);
         
     const newData = uniqueTypes.map(type => {
       const container = {};
@@ -150,25 +152,20 @@ class App extends Component {
       
       return container;
     });
-
-    if (type_2Sort){
+    if (type_2Sort || !pokemon[0]){
       this.setState({ graphData : [] });
-    }
-
-    if (!type_2Sort){   
+    } else if (!type_2Sort && pokemon){   
       this.setState({ graphData : newData, secondaryTypes : uniqueTypes });
     }
   }
       
-      
-    
   render() {
     const { pokemon, primaryTypes, secondaryTypes, page, graphData, type_1Sort } = this.state;
     return (
       <div className="App">
         <Header/>
         <div className="PieChart">
-          {type_1Sort 
+          {type_1Sort && pokemon
             ? <> <h3> Secondary Types </h3> 
               <VictoryPie 
                 animation={{ duration: 5000 }}
@@ -209,11 +206,8 @@ class App extends Component {
                 }}
               />
             </>
-              
             : <p></p>
           }
-          
-      
         </div>
        
         <Search 
