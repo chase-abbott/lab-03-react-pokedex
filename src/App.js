@@ -6,7 +6,7 @@ import Footer from './Footer';
 import './App.css';
 import React from 'react';
 import request from 'superagent';
-import { VictoryChart, VictoryPie } from 'victory';
+import { VictoryPie } from 'victory';
 
 const POKEMON_API_URL = 'https://pokedex-alchemy.herokuapp.com/api/pokedex';
 
