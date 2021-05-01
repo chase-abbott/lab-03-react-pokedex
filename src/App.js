@@ -142,7 +142,10 @@ class App extends Component {
     const newData = uniqueTypes.map(type => {
       const container = {};
       const typeCount = allTypes.filter(item => {
-        if (item === type) return item;
+        if (item === type) {
+          return item;
+        }
+        return null;
       }).length;
       
       container.type = type;
