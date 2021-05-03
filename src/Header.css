@@ -1,0 +1,13 @@
+.Header {
+   display: grid;
+   grid-template-columns: auto auto;
+   background: linear-gradient(.25turn, #e66465, #9198e5);
+}
+
+.Header img {
+    justify-self: flex-end;
+    width: 50px;
+    align-self: center;
+}
+
+

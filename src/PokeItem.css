@@ -1,0 +1,25 @@
+.PokeItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 2%;
+}
+
+.PokeItem:hover {
+    transform: scale(1.03);
+    box-shadow: 3px 2px 2px rgb(80, 78, 78);
+    background: white;
+}
+
+.PokeItem img {
+    width: 200px;
+}
+
+.PokeItem h4 {
+    margin: 0;
+}
+
+a { 
+    text-decoration: none;
+    color: black;
+}

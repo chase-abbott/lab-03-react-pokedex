@@ -1,0 +1,55 @@
+.SearchDiv {
+  display: flex;
+  flex-grow: 5;
+  margin: 1rem;
+}
+
+.Search {
+  display: grid;
+  grid-template-columns: 1fr .5fr .1fr .5fr .5fr 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  flex-grow: 2;
+}
+
+.Search input {
+    height: 50px;
+    flex-grow: 2;
+}
+
+.Search select {
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+.Search button {
+  cursor: pointer;
+}
+
+.PagesDiv {
+  display: flex;
+  align-items: center;
+  
+}
+
+.PagesDiv input {
+  width: 2rem;
+  height: 1.9rem
+}
+
+.PagesDiv p {
+  display: flex;
+  background-color: whitesmoke;
+ width: 2.2rem;
+ height: 2.15rem;
+ margin: 0;
+ align-items: center;
+ justify-content: center;
+}
+
+.PagesDiv button {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 1.5rem;
+}

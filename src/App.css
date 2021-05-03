@@ -1,8 +1,30 @@
 .App {
   display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  background: linear-gradient(.25turn, #e66465, #9198e5);
 }
 
 /* TODO: remove **/
 .temp-images {
   height: 200px;
+}
+
+.PieChart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  max-width: 40%; 
+}
+
+.VictoryContainer {
+  justify-self: center;
+  margin-left: 10px;
+ 
+}
+
+.PieChart h3 {
+  margin: 0;
+  max-width: 150px;
+ 
 }
